@@ -29,7 +29,7 @@ The main goal of this project is to:
 ## 🏗️ Project Architecture
 
 ---
-
+```
 task-management-system
 │
 ├── common
@@ -55,7 +55,7 @@ task-management-system
 │   └── application.properties
 │
 └── TaskManagementSystemApplication.java
-
+```
 ---
 
 ## 🧠 Key Concepts Used

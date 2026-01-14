@@ -56,32 +56,32 @@ public class UserService {
     }
 
     //Service To Get All Users
-    public List<UserResponse> getAllUsers(){
-
-        return userRepository.findAll().stream().map(this::toResponse).toList();
-    }
-
-    //Service To Delete User By I'd
-    @Transactional
-    public void deleteUser(Long id) {
-        User user = getUserEntityById(id);
-        List<Task> tasks = taskRepository.findByAssignedTo(user);
-        for (Task task : tasks) {
-            task.setAssignedTo(null);
-        }
-        userRepository.delete(user);
-    }
+//    public List<UserResponse> getAllUsers(){
+//
+//        return userRepository.findAll().stream().map(this::toResponse).toList();
+//    }
+//
+//    //Service To Delete User By I'd
+//    @Transactional
+//    public void deleteUser(Long id) {
+//        User user = getUserEntityById(id);
+//        List<Task> tasks = taskRepository.findByAssignedTo(user);
+//        for (Task task : tasks) {
+//            task.setAssignedTo(null);
+//        }
+//        userRepository.delete(user);
+//    }
 
     //Service Replace User By I'd
-    public UserResponse replaceUser(Long id,String name,String email,Role role){
-        User user = getUserEntityById(id);
-
-        user.setName(name);
-        user.setEmail(email);
-        user.setRole(role);
-
-        return toResponse(userRepository.save(user));
-    }
+//    public UserResponse replaceUser(Long id,String name,String email,Role role){
+//        User user = getUserEntityById(id);
+//
+//        user.setName(name);
+//        user.setEmail(email);
+//        user.setRole(role);
+//
+//        return toResponse(userRepository.save(user));
+//    }
 
     //Service To Update User
     public UserResponse updateUser(Long id, String name, String email, Role role) {

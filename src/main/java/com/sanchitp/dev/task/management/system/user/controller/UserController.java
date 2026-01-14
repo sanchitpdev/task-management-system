@@ -33,26 +33,26 @@
         }
 
         //Get User By I'd
-        @GetMapping("/{id}")
+        @GetMapping("/me")
         public UserResponse getUserById(@PathVariable Long id){
 
             return userService.getUserById(id);
         }
 
         //Get All Users
-        @GetMapping
-        public List<UserResponse> getAllUsers(){
-
-            return userService.getAllUsers();
-        }
-
-        //Delete User By I'd
-        @DeleteMapping("/{id}")
-        @ResponseStatus(HttpStatus.NO_CONTENT)
-        public void deleteUser(@PathVariable Long id){
-
-            userService.deleteUser(id);
-        }
+//        @GetMapping
+//        public List<UserResponse> getAllUsers(){
+//
+//            return userService.getAllUsers();
+//        }
+//
+//        //Delete User By I'd
+//        @DeleteMapping("/{id}")
+//        @ResponseStatus(HttpStatus.NO_CONTENT)
+//        public void deleteUser(@PathVariable Long id){
+//
+//            userService.deleteUser(id);
+//        }
 
         //Patch To Update User
         @PatchMapping("/{id}")
@@ -64,15 +64,15 @@
                     request.getRole()
             );
         }
-
-        //Put To Replace User
-        @PutMapping("/{id}")
-        public UserResponse replaceUser(@PathVariable Long id,@Valid @RequestBody CreateUserRequest request){
-            return userService.replaceUser(
-                    id,
-                    request.getName(),
-                    request.getEmail(),
-                    request.getRole()
-            );
-        }
+//
+//        //Put To Replace User
+//        @PutMapping("/{id}")
+//        public UserResponse replaceUser(@PathVariable Long id,@Valid @RequestBody CreateUserRequest request){
+//            return userService.replaceUser(
+//                    id,
+//                    request.getName(),
+//                    request.getEmail(),
+//                    request.getRole()
+//            );
+//        }
     }

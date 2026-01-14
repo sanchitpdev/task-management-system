@@ -4,11 +4,10 @@ import com.sanchitp.dev.task.management.system.task.dto.AssignTaskRequest;
 import com.sanchitp.dev.task.management.system.task.dto.CreateTaskRequest;
 import com.sanchitp.dev.task.management.system.task.dto.TaskResponse;
 import com.sanchitp.dev.task.management.system.task.dto.UpdateTaskStatusRequest;
-import com.sanchitp.dev.task.management.system.task.entity.Task;
 import com.sanchitp.dev.task.management.system.task.service.TaskService;
-import com.sanchitp.dev.task.management.system.user.entity.User;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,9 +23,10 @@ public class TaskController {
     }
 
     //Create Task
+    @PreAuthorize("isAuthenticated()")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TaskResponse createTask(@Valid @RequestBody CreateTaskRequest request){
+    public TaskResponse createTask(@Valid @RequestBody CreateTaskRequest request) {
         return taskService.createTask(
                 request.getTitle(),
                 request.getDescription()
@@ -34,33 +34,37 @@ public class TaskController {
     }
 
     //Get Task By User I'd
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     public TaskResponse getTaskById(@PathVariable Long id){
         return taskService.getTaskById(id);
     }
 
     //Get All Task
+    @PreAuthorize("isAuthenticated()")
     @GetMapping
     public List<TaskResponse> getAllTasks(){
         return taskService.findAllTasks();
     }
 
     //Assign Task To User
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{taskId}/assign")
     public TaskResponse assignTask(@PathVariable Long taskId,
-                           @Valid @RequestBody AssignTaskRequest request){
+                           @Valid @RequestBody AssignTaskRequest request)  {
         return taskService.assignTaskToUser(taskId,request.getUserId());
     }
 
     //Update Task Status
-    @PatchMapping("/{id}/status")
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @PatchMapping("/{taskId}/status")
     public TaskResponse updateTaskStatus(@PathVariable Long taskId,
-                                 @Valid @RequestBody UpdateTaskStatusRequest request)
-    {
+                                 @Valid @RequestBody UpdateTaskStatusRequest request) {
         return taskService.updateTaskStatus(taskId,request.getStatus());
     }
 
     //Get User By Task
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/user/{userId}")
     public List<TaskResponse> getTaskByUserId(@PathVariable Long userId){
         return taskService.getTaskByUser(userId);
